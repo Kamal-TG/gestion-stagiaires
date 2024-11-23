@@ -1,0 +1,10 @@
+form {
+    max-width: 640px;
+    padding: 2rem;
+    margin: 0 auto;
+}
+
+.nav li > a {
+    max-width: fit-content;
+    margin-bottom: 5px;
+}
