@@ -3,7 +3,7 @@ use Core\App;
 use Core\Database;
 // code php for modification info student
 $db = App::resolve(Database::class);
-$id =  $_POST['matricule']?? '' ;
+$id =  $_POST['id']?? '' ;
 $nom = $_POST['nom'] ?? '';
 $prenom = $_POST['prenom'] ?? '';
 $filiere = $_POST['filiere'] ?? '';
