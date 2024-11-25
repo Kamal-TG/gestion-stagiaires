@@ -27,7 +27,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link d-flex align-items-center gap-2 active" href="/delete">
+                            <a class="nav-link d-flex align-items-center gap-2 active" href="/show">
                                 <i class="bi bi-trash3-fill"></i>
                                 Consultation les données d'un stagiaire
                             </a>
