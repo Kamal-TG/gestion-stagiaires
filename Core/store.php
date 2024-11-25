@@ -1,11 +1,8 @@
 <?php
-
+// Ajouter student
 use Core\App;
 use Core\Database;
-
-// code php for Add student to database
 $db = App::resolve(Database::class);
-
 $nom = $_POST['nom'] ?? '';
 $prenom = $_POST['prenom'] ?? '';
 $filiere = $_POST['filiere'] ?? '';
