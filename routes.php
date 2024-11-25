@@ -1,5 +1,5 @@
 <?php
 
-// index
-$router->get('/', 'index.php');
+$router->get('/', 'create.php');
+$router->post('/add', 'store.php');
 

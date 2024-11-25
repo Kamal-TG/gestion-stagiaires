@@ -74,5 +74,5 @@ The application will use a database named `ISTA`, which contains a table `Stagia
    ```
 3. Running the Application
    ```bash
-   php -S localhost:8000 -t public/
+   C:\xampp\php\php.exe -S localhost:8000 -t public/
    ```
