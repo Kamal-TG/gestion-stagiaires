@@ -1,7 +1,7 @@
 <?php
+// Affichage L'information des stagaire par annee d'etude et par filiere
 use Core\App;
 use Core\Database;
-// Consultation de donnees d'un stagaire
 $db = App::resolve(Database::class);
 $filiaire = $_POST['filiere']?? '';
 $annee_etude = $_POST['annee_etude']?? '';
