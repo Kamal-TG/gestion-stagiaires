@@ -1,42 +1,39 @@
-const selectNiveau = document.querySelector('#niveau')
-const selectFiliere = document.querySelector('#filiere')
-const selectGroupe = document.querySelector('#groupe')
-const data = {
-    'Technicien Spécialisé': [
-        {
-            nom: 'Développement Digital',
-            groupes: ['dev101', 'dev102', 'devofs201', 'devofs202']
-        },
-        {
-            nom: 'Infrastructure Digitale',
-            groupes: ['id101', 'id102', 'idors201', 'idors202']
+const filiereSelect = document.querySelector('select#filiere')
+const anneeEtudeSelect = document.querySelector('select#annee_etude')
+
+filiereSelect.addEventListener('change', (event) => {
+    const filiere = event.target.value
+    const data = new URLSearchParams({ filiere })
+    
+    let xhr = new XMLHttpRequest()
+
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4) {
+            if (xhr.status === 200) {
+                const annees_etudes = JSON.parse(xhr.response)
+                anneeEtudeSelect.innerHTML = '<option selected disabled>-- Selectioner annee_etude --</option>'
+                for (const annee_etude of annees_etudes) {
+                    const option = document.createElement('option')
+                    option.setAttribute('value', annee_etude)
+                    option.textContent = annee_etude
+                    anneeEtudeSelect.appendChild(option)
+                }
+            } else {
+                console.log('error')
+            }
         }
-    ]
-}
 
-selectNiveau.addEventListener('change', () => {
-    selectFiliere.innerHTML = '<option disabled selected value> -- Selection un filière -- </option>'
+    }
 
-    const selectedNiveau = data[selectNiveau.value]
-    selectedNiveau.forEach(filiere => {
-        const option = document.createElement('option')
-        option.setAttribute('value', filiere.nom)
-        option.textContent = filiere.nom
-        selectFiliere.add(option)
-    });
+    xhr.open('POST', '/list')
+    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded')
+    xhr.send(data.toString())
 })
 
-selectFiliere.addEventListener('change', () => {
-    selectGroupe.innerHTML = '<option disabled selected value> -- Selection un l\'année-- </option > '
+const today = new Date()
+const anneeEtudeInput = document.querySelector('input#annee_etude')
+anneeEtudeInput.setAttribute('max', today.getFullYear())
 
-    const filieres = data[selectNiveau.value]
-    const slectedFiliere = filieres.find(filiere => filiere.nom === selectFiliere.value)
-    const groupes = slectedFiliere.groupes
 
-    groupes.forEach(groupe => {
-        const option = document.createElement('option')
-        option.setAttribute('value', groupe)
-        option.textContent = groupe
-        selectGroupe.add(option)
-    })
-})
+const anneeBacInput = document.querySelector('input#annee_bac')
+anneeBacInput.setAttribute('max', today.getFullYear()-1)

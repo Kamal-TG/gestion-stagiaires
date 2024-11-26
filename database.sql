@@ -1,3 +1,5 @@
+DROP DATABASE IF EXISTS ISTA;
+
 CREATE DATABASE ISTA;
 
 USE ISTA;
@@ -7,7 +9,7 @@ CREATE TABLE stagiaires (
     nom VARCHAR(50) NOT NULL,
     prenom VARCHAR(50) NOT NULL,
     filiere VARCHAR(50) NOT NULL,
-    annee_etude DATE NOT NULL,
+    annee_etude VARCHAR(4) NOT NULL,
     type_bac VARCHAR(50) NOT NULL,
-    annee_bac DATE NOT NULL
+    annee_bac VARCHAR(4) NOT NULL
 );

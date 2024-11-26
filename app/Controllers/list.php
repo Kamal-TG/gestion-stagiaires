@@ -5,11 +5,29 @@ use Core\Database;
 
 $db = App::resolve(Database::class);
 
-$stagiaires = $db->query('SELECT * FROM stagiaires WHERE filiere = :filiere AND annee_etude = :annee_etude', [
-    ':filiere' => $_POST['filiere'],
-    ':annee_etude' => $_POST['annee_etude']
-])->findAll();
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $filiere = $_POST['filiere'];
 
-view('list.view.php', [
-    'stagiaires' => $stagiaires
+    $annees_etudes = $db->query(
+        'SELECT DISTINCT (annee_etude)
+        FROM stagiaires
+        WHERE filiere = :filiere
+        ORDER BY annee_etude', [
+            ':filiere' => $filiere
+        ]
+    )->findAll();
+    $annees_etudes = array_column($annees_etudes, 'annee_etude');
+    
+    echo json_encode($annees_etudes);
+    exit();
+}
+
+$filieres = $db->query(
+    'SELECT DISTINCT (filiere)
+    FROM stagiaires
+    ORDER BY filiere'
+)->findAll();
+
+return view('list.view.php', [
+    'filieres' => $filieres
 ]);

@@ -8,3 +8,12 @@ form {
     max-width: fit-content;
     margin-bottom: 5px;
 }
+
+select {
+    min-width: fit-content;
+    margin: 1em;
+}
+
+.grid-center {
+    justify-items: center;
+}

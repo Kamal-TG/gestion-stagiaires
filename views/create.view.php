@@ -19,7 +19,7 @@
         <?php endif ?>
 
         <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
-            <h3>Inscription</h3>
+            <h3>Information Personnelles</h3>
         </div>
 
         <div class="mb-3 row">
@@ -48,8 +48,7 @@
         </div>
         <div class="mb-3">
             <label for="annee_etude" class="form-label">Année étude</label>
-            <input type="date" class="form-control" name="annee_etude" id="annee_etude" value="<?= $_POST['annee_etude'] ?? '' ?>"
-                required>
+            <input type="number" class="form-control" name="annee_etude" id="annee_etude" min="2000" step="1" value="<?= $_POST['annee_etude'] ?? '' ?>" required>
             <?php if (isset($errors['annee_etude'])): ?>
                 <p class="text-danger fst-italic">
                     <?= $errors['annee_etude'] ?>
@@ -67,7 +66,7 @@
         </div>
         <div class="mb-3">
             <label for="annee_bac" class="form-label">Année baccalauréat</label>
-            <input type="date" class="form-control" name="annee_bac" id="annee_bac" value="<?= $_POST['annee_bac'] ?? '' ?>" required>
+            <input type="number" class="form-control" name="annee_bac" id="annee_bac" min="2000" step="1" value="<?= $_POST['annee_bac'] ?? '' ?>" required>
             <?php if (isset($errors['annee_bac'])): ?>
                 <p class="text-danger fst-italic">
                     <?= $errors['annee_bac'] ?>

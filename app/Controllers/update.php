@@ -15,10 +15,14 @@ App::resolve(Database::class)->query(
     'UPDATE stagiaires
     SET nom = :nom,
         prenom = :prenom,
-        filiere= :fil,
-        annee_etude= :anneEtude,
-        type_bac= :typeBac,
-        anne_bac= :anneBac
+        filiere = :filiere,
+        annee_etude = :anne_etude,
+        type_bac = :type_bac,
+        annee_bac = :annee_bac
     WHERE id = :id',
     compact('nom', 'prenom', 'filiere', 'anne_etude','type_bac', 'annee_bac', 'id')
 );
+
+view('edit.view.php', [
+    'success' => 'Stagiaire été modifié avec succés!'
+]);

@@ -39,7 +39,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link d-flex align-items-center gap-2" href="/show">
+                            <a class="nav-link d-flex align-items-center gap-2" href="/list">
                                 <i class="bi bi-search"></i>
                                 Lister les stagiaires
                             </a>
