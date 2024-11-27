@@ -29,19 +29,13 @@ class Stagiaire
         );
     }
 
-    public function update($old_nom, $old_prenom)
+    public function update()
     {
         App::resolve(Database::class)->query(
             'UPDATE stagiaires
             SET nom = :nom, prenom = :prenom, genre = :genre, cin = :cin, cne = :cne, email = :email, date_naissance = :daten, lieu_naissance = :lieun, phone = :phone, niveau = :niveau, filiere = :filiere, groupe = :groupe
-            WHERE nom = :old_nom AND prenom = :old_prenom',
-            array_merge(
-                $this->attributes,
-                [
-                    ':old_nom' => $old_nom,
-                    ':old_prenom' => $old_prenom,
-                ]
-            )
+            WHERE id = :id',
+            $this->attributes
         );
     }
 }
