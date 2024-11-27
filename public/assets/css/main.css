@@ -9,11 +9,10 @@ form {
     margin-bottom: 5px;
 }
 
-select {
-    min-width: fit-content;
-    margin: 1em;
-}
-
 .grid-center {
     justify-items: center;
+}
+
+.grid-center select {
+    margin: 0.5em 0;
 }

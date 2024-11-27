@@ -53,25 +53,30 @@
                 <p class="text-danger fst-italic">
                     <?= $errors['annee_etude'] ?>
                 </p>
-            <?php endif ?>
-        </div>
-        <div class="mb-3">
-            <label for="type_bac" class="form-label">Type baccalauréat</label>
-            <select class="form-select" name="type_bac" id="type_bac">
-                <option disabled selected value> -- Selection un type baccalauréat -- </option>
-                <option value="PC">PC</option>
-                <option value="SVT">SVT</option>
-                <option value="SM">SM</option>
-            </select>
-        </div>
-        <div class="mb-3">
-            <label for="annee_bac" class="form-label">Année baccalauréat</label>
-            <input type="number" class="form-control" name="annee_bac" id="annee_bac" min="2000" step="1" value="<?= $_POST['annee_bac'] ?? '' ?>" required>
-            <?php if (isset($errors['annee_bac'])): ?>
-                <p class="text-danger fst-italic">
-                    <?= $errors['annee_bac'] ?>
-                </p>
-            <?php endif ?>
+                <?php endif ?>
+            </div>
+            <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
+                <h3>Information sur Baccalauréat</h3>
+            </div>
+            <div class="row">
+                <div class="mb-3 col">
+                    <label for="type_bac" class="form-label">Type baccalauréat</label>
+                    <select class="form-select" name="type_bac" id="type_bac">
+                        <option disabled selected value> -- Selection un type baccalauréat -- </option>
+                        <option value="PC">PC</option>
+                        <option value="SVT">SVT</option>
+                        <option value="SM">SM</option>
+                </select>
+            </div>
+            <div class="mb-3 col">
+                <label for="annee_bac" class="form-label">Année baccalauréat</label>
+                <input type="number" class="form-control" name="annee_bac" id="annee_bac" min="2000" step="1" value="<?= $_POST['annee_bac'] ?? '' ?>" required>
+                <?php if (isset($errors['annee_bac'])): ?>
+                    <p class="text-danger fst-italic">
+                        <?= $errors['annee_bac'] ?>
+                    </p>
+                <?php endif ?>
+            </div>
         </div>
         <button type="submit" class="btn btn-primary">Ajouter</button>
     </form>

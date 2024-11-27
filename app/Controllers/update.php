@@ -11,7 +11,9 @@ $anne_etude = $_POST['annee_etude'] ?? '';
 $type_bac = $_POST['type_bac'] ?? '';
 $annee_bac = $_POST['annee_bac'] ?? '';
 
-App::resolve(Database::class)->query(
+$db = App::resolve(Database::class);
+
+$db->query(
     'UPDATE stagiaires
     SET nom = :nom,
         prenom = :prenom,
@@ -23,6 +25,10 @@ App::resolve(Database::class)->query(
     compact('nom', 'prenom', 'filiere', 'anne_etude','type_bac', 'annee_bac', 'id')
 );
 
+$ids = $db->query('SELECT id FROM stagiaires ORDER BY id')->findAll();
+$ids = array_column($ids, 'id');
+
 view('edit.view.php', [
-    'success' => 'Stagiaire été modifié avec succés!'
+    'success' => 'Stagiaire été modifié avec succés!',
+    'ids' => $ids
 ]);
