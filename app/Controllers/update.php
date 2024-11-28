@@ -29,6 +29,7 @@ $ids = $db->query('SELECT id FROM stagiaires ORDER BY id')->findAll();
 $ids = array_column($ids, 'id');
 
 view('edit.view.php', [
+    'heading' => 'Modifier les données',
     'success' => 'Stagiaire été modifié avec succés!',
     'ids' => $ids
 ]);

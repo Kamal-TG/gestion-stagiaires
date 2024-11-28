@@ -13,6 +13,7 @@ $annee_bac = $_POST['annee_bac'] ?? '';
 if (empty($nom) || empty($prenom) || empty($filiere) || empty($annee_etude) || empty($type_bac) || empty($annee_bac)) {
     $errors['general'] = 'Tous les champs sont obligatoires!';
     return view('create.view.php', [
+        'heading' => 'Inscription Stagiaire',
         'errors' => $errors
     ]);
 }
@@ -23,5 +24,6 @@ App::resolve(Database::class)->query(
 );
 
 view('create.view.php', [
+    'heading' => 'Inscription Stagiaire',
     'success' => 'Stagiaire été ajouté avec succès!'
 ]);
