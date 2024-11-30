@@ -44,6 +44,12 @@
                                 Lister les stagiaires
                             </a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link d-flex align-items-center gap-2" href="/absents/create">
+                                <i class="bi bi-calendar2-x"></i>
+                                Gestion des absences
+                            </a>
+                        </li>
                     </ul>
                 </div>
             </div>

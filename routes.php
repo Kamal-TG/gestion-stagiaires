@@ -17,3 +17,7 @@ $router->get('/search', 'search.php');
 $router->get('/edit', 'edit.php');
 $router->post('/edit', 'edit.php');
 $router->post('/update', 'update.php');
+
+// absents
+$router->get('/absents/create', 'absents/create.php');
+$router->post('/absents/show', 'absents/show.php');
