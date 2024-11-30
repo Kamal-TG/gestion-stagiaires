@@ -29,5 +29,6 @@ $filieres = $db->query(
 )->findAll();
 
 return view('list.view.php', [
+    'heading' => 'Lister par filiére',
     'filieres' => $filieres
 ]);

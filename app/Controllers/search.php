@@ -21,6 +21,7 @@ $stagiaires = $db->query(
 ])->findAll();
 
 view('list.view.php', [
+    'heading' => 'Lister par filiére',
     'stagiaires' => $stagiaires,
     'filieres' => $filieres
 ]);
