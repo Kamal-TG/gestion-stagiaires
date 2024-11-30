@@ -36,7 +36,7 @@
         <div class="mb-3">
             <label for="justifie" class="form-label ">Absence justifie
                 <input type="radio" class='form-check-input ms-5' name="justifie" id="justifie" value='Oui'><span class='ms-3'>Oui</span>
-                <input type="radio" class='form-check-input ms-5'' name="justifie" id="justifie" value='Non'><span class='ms-3'>Non</span>
+                <input type="radio" class='form-check-input ms-5'' name="justifie" id="justifie" value='Non'default><span class='ms-3'>Non</span>
             </label>
         </div>
         <div class="mb-3">

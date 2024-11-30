@@ -15,6 +15,7 @@
         <tr>
             <th>Order</th>
             <th>Date</th>
+            <th>Heur</th>
             <th>Justifie</th>
         </tr>
     </thead>
@@ -22,6 +23,7 @@
         <tr>
             <td>1</td>
             <td>2024-10-01</td>
+            <td>2 heur</td>
             <td>Oui</td>
         </tr>
     </tbody>

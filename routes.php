@@ -21,6 +21,7 @@ $router->post('/update', 'update.php');
 //Ajoute Absence
 $router->get('/absence', 'testing.php');
 $router->post('/absence2', 'absence.php');
+
 //history Absence
 $router->get('/history', 'history.php');
 
