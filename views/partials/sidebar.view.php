@@ -46,15 +46,9 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link d-flex align-items-center gap-2" href="/absence">
-                                <i class="bi bi-patch-plus"></i>
-                                Ajouter Absence
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link d-flex align-items-center gap-2" href="/history">
-                                <i class="bi bi-eye"></i>
-                                Historique des Absences
+                            <a class="nav-link d-flex align-items-center gap-2" href="/absents/create">
+                                <i class="bi bi-calendar2-x"></i>
+                                Gestion des absences
                             </a>
                         </li>
                     </ul>
