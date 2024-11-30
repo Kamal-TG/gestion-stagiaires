@@ -37,3 +37,16 @@ anneeEtudeInput.setAttribute('max', today.getFullYear())
 
 const anneeBacInput = document.querySelector('input#annee_bac')
 anneeBacInput.setAttribute('max', today.getFullYear()-1)
+//code add
+function Event1(Val) {
+    if(Val=='Close'){
+        document.getElementById('MaxBar').style.display = 'none'
+        document.getElementById('MinBar').style.display = 'block'
+    }else {
+        document.getElementById('MaxBar').style.display = 'block'
+        document.getElementById('MinBar').style.display = 'none'
+        
+    }
+
+}
+

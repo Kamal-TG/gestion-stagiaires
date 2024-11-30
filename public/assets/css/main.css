@@ -16,3 +16,18 @@ form {
 .grid-center select {
     margin: 0.5em 0;
 }
+.IdClose {
+    background-color: transparent;
+    width:50px;
+    position: absolute;
+    margin-left: 16.6rem;
+    margin-top: -1.5rem;
+    border: none;
+}
+.IdDisplay {
+    background-color: transparent;
+    border: none;
+}
+#MinBar{
+    display: none;
+}
