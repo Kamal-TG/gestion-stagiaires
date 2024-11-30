@@ -37,8 +37,23 @@
                     <td><?= $nom ?></td>
                     <td><?= $prenom ?></td>
                     <td><?= $annee_etude ?></td>
-                    <td><i class="bi bi-eye-fill"></i></td>
-                    <td><i class="bi bi-clipboard2-plus-fill"></i></td>
+                     <!-- <td>
+                        <form action='/history' method='POST'>
+                            <input style="display:none" name='form1' type='number' value=<?= $id?>/>
+                            <button type='submit' class='bi bi-eye-fill border-0'>
+                            </button>
+                        </form>
+                    </td>
+                    <td>
+                        <form action='/absence' method='POST'>
+                            <input style="display:none"  name='form2' type='number' value=<?= $id?>/>
+                            <button type='submit'>
+                                <i class="bi bi-clipboard2-plus-fill"></i>
+                            </button>
+                        </form>
+                    </td>  -->
+                    <td><a href='/history'><i class="bi bi-eye-fill"></i></a></td>
+                    <td><a href='/absence'><i class="bi bi-clipboard2-plus-fill"></i></a></td> 
                 </tr>
             <?php endforeach ?>
         </tbody>

@@ -13,7 +13,7 @@ if (empty($nombre_heures) || empty($date_absence) || empty($justifie) || empty($
         'errors' => $errors
     ]);
 }
-// dd($_POST['justifie']);
+// dd($_POST['form2']);
 $justifie = $_POST['justifie']=='Oui'? true : false ;
 App::resolve(Database::class)->query(
     'INSERT INTO absences Values(Default,:nombre_heures, :date_absence, :justifie, :id_stagiaire)',
