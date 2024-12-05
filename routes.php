@@ -28,3 +28,6 @@ $router->get('/history', 'history.php');
 // absents
 $router->get('/absents/create', 'absents/create.php');
 $router->post('/absents/show', 'absents/show.php');
+
+// test
+$router->get('/test', 'test.php');
