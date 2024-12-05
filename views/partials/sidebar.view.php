@@ -35,15 +35,15 @@
             <!-- Nav Item -->
             <li class="nav-item">
                 <a class="nav-link" href="#">
-                    <i class="fas fa-fw fa-chart-area"></i>
+                    <i class="fas fa-fw fa-table"></i>
                     <span>Gestion des données</span></a>
             </li>
 
             <!-- Nav Item -->
             <li class="nav-item">
                 <a class="nav-link" href="#">
-                    <i class="fas fa-fw fa-table"></i>
-                    <span>Gestion des absences</span></a>
+                    <i class="fas fa-calendar-alt"></i>
+                    <span>Consulation des absences</span></a>
             </li>
 
             <!-- Divider -->
