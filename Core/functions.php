@@ -18,7 +18,7 @@ function urlIs($value)
 
 function abort($code = Response::NOT_FOUND)
 {
-    http_response_code($code);
+    http_response_code($code->value);
 
     $file = base_path("views/{$code}.php");
 
@@ -33,7 +33,7 @@ function abort($code = Response::NOT_FOUND)
 
 function authorize($condition, $status = Response::FORBIDDEN)
 {
-    if (!$condition) {
+    if (! $condition) {
         abort($status);
     }
 }
@@ -49,8 +49,13 @@ function view($path, $attributes = [])
     require base_path('views/' . $path);
 }
 
-function redirect($url)
+function redirect($url): never
 {
     header("location: {$url}");
     exit();
+}
+
+function old($key, $default = '')
+{
+    return Core\Session::get('old')[$key] ?? $default;
 }

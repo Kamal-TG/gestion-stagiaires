@@ -7,7 +7,7 @@
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
             <!-- Sidebar - Brand -->
-            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/">
                 <div class="sidebar-brand-icon">
                     <img class="img-fluid" src="/assets/img/ofppt-logo.png" alt="ofppt logo">
                 </div>
@@ -19,9 +19,9 @@
 
             <!-- Nav Item - Dashboard -->
             <li class="nav-item active">
-                <a class="nav-link" href="index.html">
+                <a class="nav-link" href="/dashboard">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
-                    <span>Dashboard</span></a>
+                    <span>Tableau de bord</span></a>
             </li>
 
             <!-- Divider -->
@@ -34,7 +34,7 @@
 
             <!-- Nav Item -->
             <li class="nav-item">
-                <a class="nav-link" href="#">
+                <a class="nav-link" href="/trainee/create">
                     <i class="fas fa-fw fa-table"></i>
                     <span>Gestion des données</span></a>
             </li>
@@ -43,7 +43,14 @@
             <li class="nav-item">
                 <a class="nav-link" href="#">
                     <i class="fas fa-calendar-alt"></i>
-                    <span>Consulation des absences</span></a>
+                    <span>Gestion des absences</span></a>
+            </li>
+
+            <!-- Nav Item -->
+            <li class="nav-item">
+                <a class="nav-link" href="#">
+                    <i class="bi bi-file-earmark-check-fill"></i>
+                    <span>Gestion des notes</span></a>
             </li>
 
             <!-- Divider -->

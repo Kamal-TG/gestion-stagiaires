@@ -1,52 +1,38 @@
-const filiereSelect = document.querySelector('select#filiere')
-const anneeEtudeSelect = document.querySelector('select#annee_etude')
+/* Activate Pooper Tooltip */
+const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
 
-filiereSelect.addEventListener('change', (event) => {
-    const filiere = event.target.value
-    const data = new URLSearchParams({ filiere })
-    
-    let xhr = new XMLHttpRequest()
 
-    xhr.onreadystatechange = function () {
-        if (xhr.readyState === 4) {
-            if (xhr.status === 200) {
-                const annees_etudes = JSON.parse(xhr.response)
-                anneeEtudeSelect.innerHTML = '<option selected disabled>-- Selectioner annee_etude --</option>'
-                for (const annee_etude of annees_etudes) {
-                    const option = document.createElement('option')
-                    option.setAttribute('value', annee_etude)
-                    option.textContent = annee_etude
-                    anneeEtudeSelect.appendChild(option)
-                }
-            } else {
-                console.log('error')
-            }
-        }
+/*
+ * Make anchor links in tables update current URL
+ * AJAX for table anchor links
+ */
 
-    }
+// Store the original URL when the page loads
+const originalUrl = window.location.href;
 
-    xhr.open('POST', '/list')
-    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded')
-    xhr.send(data.toString())
+const anchorElements = document.querySelectorAll(".send-idx")
+anchorElements.forEach((anchor) => {
+    anchor.addEventListener("click", (event) => {
+        event.preventDefault()
+
+        const href = event.currentTarget.href
+        
+        window.history.pushState(null, "", href);
+
+        const requestedUrl = new Request(href)
+        fetch(requestedUrl, {
+            method: "GET",
+            
+        })
+            .then((response) => response.text())
+            .then((data) => console.log(data))
+    })
 })
 
-const today = new Date()
-const anneeEtudeInput = document.querySelector('input#annee_etude')
-anneeEtudeInput.setAttribute('max', today.getFullYear())
-
-
-const anneeBacInput = document.querySelector('input#annee_bac')
-anneeBacInput.setAttribute('max', today.getFullYear()-1)
-//code add
-function Event1(Val) {
-    if(Val=='Close'){
-        document.getElementById('MaxBar').style.display = 'none'
-        document.getElementById('MinBar').style.display = 'block'
-    }else {
-        document.getElementById('MaxBar').style.display = 'block'
-        document.getElementById('MinBar').style.display = 'none'
-        
-    }
-
-}
+// Restore the original URL when the modal is closed
+const modal = document.getElementById("showTrainee");
+modal.addEventListener("hidden.bs.modal", function () {
+    window.history.replaceState(null, "", originalUrl);
+});
 

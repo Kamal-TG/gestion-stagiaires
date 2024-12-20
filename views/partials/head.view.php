@@ -19,8 +19,8 @@
     <link rel="stylesheet" href="/assets/css/main.css">
     <script src="/assets/js/main.js" defer></script>
 
-    <!-- Style for debugging -->
     <style>
+        /* Style for debugging */
         .debug {
             border: 3px solid red !important;
         }
@@ -95,5 +95,3 @@
     <script src="/assets/js/demo/chart-pie-demo.js" defer></script>
 
 </head>
-
-<body>

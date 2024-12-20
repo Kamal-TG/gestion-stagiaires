@@ -5,31 +5,34 @@ use Core\Database;
 
 $db = App::resolve(Database::class);
 
-$stagiairesTotal = $db->query(
+$stagiairesCount = $db->query(
     'SELECT count(*) AS count
-    FROM stagiaires'
-)->find();
+        FROM stagiaires'
+)->findOrFail();
 
-$stagiairesTotal = $stagiairesTotal['count'];
+$stagiairesCount = $stagiairesCount['count'];
 
 $filieres = $db->query(
-    'SELECT filiere AS name, count(*) AS y
-    FROM stagiaires
-    GROUP BY filiere'
+    'SELECT intitule AS name, count(i.stagiaire_id) AS y
+        FROM filieres f
+        LEFT JOIN inscriptions i ON f.filiere_id = i.filiere_id
+    GROUP BY f.filiere_id'
 )->findAll();
 
-$filieresTotal = array_sum(array_column($filieres, 'y'));
+$filieresCount = count($filieres);
 
 // calculate percentages
-for ($i = 0; $i < count($filieres); $i++) { 
-    $filieres[$i]['y'] *= 100 / $filieresTotal;
+if ($filieresCount > 0) {
+    for ($i = 0; $i < count($filieres); $i++) { 
+        $filieres[$i]['y'] *= 100 / $filieresCount;
+    }
 }
 
 $filieres = json_encode($filieres);
 
 view('index.view.php', [
-    'heading' => 'Dashboard',
-    'stagiairesTotal' => $stagiairesTotal,
-    'filieresTotal' => $filieresTotal,
+    'heading' => 'Tableau de bord',
+    'stagiairesCount' => $stagiairesCount,
+    'filieresCount' => $filieresCount,
     'filieres' => $filieres,
 ]);

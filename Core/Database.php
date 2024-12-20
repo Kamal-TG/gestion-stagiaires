@@ -60,4 +60,9 @@ class Database
     {
         return $this->connection->errorInfo();
     }
+
+    public function lastInsertId()
+    {
+        return $this->connection->lastInsertId();
+    }
 }

@@ -1,10 +1,11 @@
 <?php require base_path('views/partials/head.view.php'); ?>
 <?php require base_path('views/partials/sidebar.view.php'); ?>
 <?php require base_path('views/partials/topbar.view.php'); ?>
+<?php require base_path('views/partials/heading.view.php'); ?>
 
 
 <!-- Content Row -->
-<div class="row">
+<div class="row statistics">
 
     <!-- Stagiaires -->
     <div class="col-xl-3 col-md-6 mb-4">
@@ -14,7 +15,7 @@
                     <div class="col mr-2">
                         <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
                             stagiaires</div>
-                        <div class="h5 mb-0 font-weight-bold text-gray-800"><?= $stagiairesTotal ?? 0 ?></div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800"><?= $stagiairesCount ?? 0 ?></div>
                     </div>
                     <div class="col-auto">
                         <i class="fas fa-user fa-2x text-gray-300"></i>
@@ -32,7 +33,7 @@
                     <div class="col mr-2">
                         <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
                             filières</div>
-                        <div class="h5 mb-0 font-weight-bold text-gray-800"><?= $filieresTotal ?? 0 ?></div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800"><?= $filieresCount ?? 0 ?></div>
                     </div>
                     <div class="col-auto">
                         <i class="fas fa-lightbulb fa-2x text-gray-300"></i>
@@ -76,27 +77,23 @@
             </div>
         </div>
     </div>
+
+    <!-- Content -->
+
+    <!-- Highcharts JS -->
+    <script src="/vendor/highcharts/highcharts.js"></script>
+    <script src="/vendor/highcharts/modules/exporting.js"></script>
+    <script src="/vendor/highcharts/modules/accessibility.js"></script>
+
+    <figure class="highcharts-figure">
+        <div id="container"></div>
+        <p class="highcharts-description">
+            <!-- Write description -->
+        </p>
+    </figure>
 </div>
 
-<!-- Content -->
-
-<!-- Highcharts JS -->
-<script src="/vendor/highcharts/highcharts.js"></script>
-<script src="/vendor/highcharts/modules/exporting.js"></script>
-<script src="/vendor/highcharts/modules/accessibility.js"></script>
-
-<figure class="highcharts-figure">
-    <div id="container"></div>
-    <p class="highcharts-description">
-        <!-- Write description -->
-    </p>
-</figure>
-
-
-
 <script type="text/javascript">
-    fetch
-
     Highcharts.chart('container', {
         chart: {
             type: 'pie',
@@ -110,12 +107,12 @@
                     if (!customLabel) {
                         customLabel = chart.options.chart.custom.label =
                             chart.renderer.label(
-                                'Total<br/>' +
-                                '<strong><?= $filieresTotal ?></strong>'
+                                '<strong><?= $filieresCount ?></strong><br/>' +
+                                'Filiéres'
                             )
                             .css({
                                 color: '#000',
-                                textAnchor: 'middle'
+                                textAnchor: 'middle',
                             })
                             .add();
                     }
@@ -141,7 +138,7 @@
             }
         },
         title: {
-            text: 'Statistiques des Filières'
+            text: "Répartition des Étudiants par Filière"
         },
         tooltip: {
             pointFormat: '{series.name}: <b>{point.percentage:.0f}%</b>'
