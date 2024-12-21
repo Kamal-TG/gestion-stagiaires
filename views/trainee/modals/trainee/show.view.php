@@ -9,19 +9,7 @@
             <div class="modal-body">
                 <!-- Trainee Information -->
                 <div class="col-md-8">
-                    <?php
-                        if (isset($_GET['action']) && $_GET['action'] === 'show') {
-                            echo 'Hello fetch';
-                            // dd($_GET['stagiaire_idx']);
-                        }
-                    ?>
-                    <h4><?= $nom . ' ' . $prenom ?></h4>
-                    <p><strong>Age:</strong> 20</p>
-                    <p><strong>Class:</strong> B.Sc. Computer Science</p>
-                    <p><strong>Grade:</strong> A</p>
-                    <p><strong>Email:</strong> john.doe@example.com</p>
-                    <p><strong>Phone:</strong> +123 456 7890</p>
-                    <p><strong>Address:</strong> 123 Main Street, City, Country</p>
+                    <!-- Content Here -->
                 </div>
             </div>
             <div class="modal-footer">

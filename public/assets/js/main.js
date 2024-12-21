@@ -16,17 +16,26 @@ anchorElements.forEach((anchor) => {
     anchor.addEventListener("click", (event) => {
         event.preventDefault()
 
-        const href = event.currentTarget.href
-        
+        const href = event.currentTarget.getAttribute("href")
         window.history.pushState(null, "", href);
 
         const requestedUrl = new Request(href)
-        fetch(requestedUrl, {
-            method: "GET",
-            
-        })
-            .then((response) => response.text())
-            .then((data) => console.log(data))
+        const modalId = event.currentTarget.getAttribute("data-bs-target")
+        const modal = document.querySelector(`${modalId} .modal-body`)
+        fetch(requestedUrl)
+            .then((response) => {
+                if (! response.ok) {
+                    throw new Error(`Can't fetch data from ${requestedUrl.url}`);
+                }
+                return response.text()
+            })
+            .then((data) => {
+                modal.innerHTML = data
+            })
+            .catch((error) => {
+                console.error(error.message)
+                modal.innerText = "Pas d'informations"
+            })
     })
 })
 

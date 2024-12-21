@@ -48,7 +48,7 @@
 <!-- DataTales Example -->
 <div class="card shadow mb-4">
     <div class="card-header py-3">
-        <h6 class="m-0 font-weight-bold text-primary">DataTables Example</h6>
+        <h6 class="m-0 font-weight-bold text-primary">Tables de données stagiaires</h6>
     </div>
     <div class="card-body">
         <div class="table-responsive">
@@ -80,14 +80,23 @@
                                 <td class="align-middle"><?= $baccalaureat_code ?></td>
                                 <td class="align-middle"><?= explode('-', $annee_baccalaureat)[0] ?></td>
                                 <td>
-                                    <a class="send-idx change-url btn btn-secondary btn-sm" href="?action=show&stagiaire_idx=<?= $index ?>" data-bs-toggle="modal" data-bs-target="#showTrainee">
+                                    <a
+                                        href="/trainee/show?<?= http_build_query($stagiaire) ?>"
+                                        class="send-idx change-url btn btn-secondary btn-sm"
+                                        data-bs-toggle="modal"
+                                        data-bs-target="#showTrainee">
                                         <i class="bi bi-eye-fill"></i>
                                     </a>
                                 </td>
                                 <td>
-                                    <button type="button" class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#addTrainee">
+                                    <a
+                                        href="/trainee/update?<?= http_build_query($stagiaire) ?>"
+                                        class="send-idx change-url btn btn-warning btn-sm"
+                                        data-bs-toggle="modal"
+                                        data-bs-target="#updateTrainee"
+                                    >
                                         <i class="bi bi-pencil-square"></i>
-                                    </button>
+                                    </a>
                                 </td>
                                 <td>
                                     <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#addTrainee">
@@ -138,6 +147,7 @@
 
 <!-- Madals for table icons -->
 <?php require base_path('views/trainee/modals/trainee/show.view.php') ?>
+<?php require base_path('views/trainee/modals/trainee/update.view.php') ?>
 
 
 <?php require base_path('views/partials/footer.view.php') ?>
