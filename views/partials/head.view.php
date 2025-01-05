@@ -82,16 +82,12 @@
     <script src="/vendor/jquery/jquery.min.js" defer></script>
 
     <!-- Custom styles for this template-->
-    <link href="/assets/css/sb-admin-2.min.css" rel="stylesheet">
+    <link href="/vendor/sb-admin-2/css/sb-admin-2.min.css" rel="stylesheet">
 
     <!-- Core plugin JavaScript-->
     <script src="/vendor/jquery-easing/jquery.easing.min.js" defer></script>
 
     <!-- Custom scripts for all pages-->
-    <script src="/assets/js/sb-admin-2.min.js" defer></script>
-
-    <!-- Page level custom scripts -->
-    <script src="/assets/js/demo/chart-area-demo.js" defer></script>
-    <script src="/assets/js/demo/chart-pie-demo.js" defer></script>
+    <script src="/vendor/sb-admin-2/js/sb-admin-2.min.js" defer></script>
 
 </head>

@@ -80,3 +80,30 @@
     color: white;
     padding-top: 6px;
 }
+
+/* Hide notifications after 5s */
+
+div.notification {
+    --delay: 3s;
+    -moz-animation: hidNotification 0s ease-in var(--delay) forwards;
+    /* Firefox */
+    -webkit-animation: hidNotification 0s ease-in var(--delay) forwards;
+    /* Safari and Chrome */
+    -o-animation: hidNotification 0s ease-in var(--delay) forwards;
+    /* Opera */
+    animation: hidNotification 0s ease-in var(--delay) forwards;
+    -webkit-animation-fill-mode: forwards;
+    animation-fill-mode: forwards;
+}
+
+@keyframes hidNotification {
+    to {
+        display: none;
+    }
+}
+
+@-webkit-keyframes hidNotification {
+    to {
+        display: none;
+    }
+}

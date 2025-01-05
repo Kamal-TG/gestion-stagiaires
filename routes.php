@@ -11,4 +11,9 @@ $router->post('/major/add', '/major/add.php');
 
 $router->get('/trainee/show', '/trainee/show.php');
 
-$router->put('/trainee/update', '/trainee/update.php');
+$router->get('/trainee/update', '/trainee/update.php');
+
+$router->put('/trainee/update', '/trainee/edit.php');
+
+$router->get('/trainee/delete', '/trainee/delete.php');
+$router->delete('/trainee/delete', '/trainee/remove.php');

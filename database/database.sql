@@ -38,17 +38,17 @@ CREATE TABLE inscriptions (
     annee_etude TINYINT UNSIGNED NOT NULL,
     filiere_id INT NOT NULL,
     PRIMARY KEY (stagiaire_id),
-    FOREIGN KEY (stagiaire_id) REFERENCES stagiaires(stagiaire_id),
+    FOREIGN KEY (stagiaire_id) REFERENCES stagiaires(stagiaire_id) ON DELETE CASCADE,
     FOREIGN KEY (filiere_id) REFERENCES filieres(filiere_id)
 );
 
 CREATE TABLE notes (
-    stagiaire_id INT NOT NULL,
-    filiere_id INT NOT NULL,
-    module_id INT NOT NULL,
+    stagiaire_id INT,
+    filiere_id INT,
+    module_id INT,
     note DECIMAL(5, 2) NOT NULL,
     PRIMARY KEY (stagiaire_id, filiere_id, module_id),
-    FOREIGN KEY (stagiaire_id) REFERENCES stagiaires(stagiaire_id),
+    FOREIGN KEY (stagiaire_id) REFERENCES stagiaires(stagiaire_id) ON DELETE CASCADE,
     FOREIGN KEY (filiere_id, module_id) REFERENCES modules(filiere_id, module_id)
 );
 
@@ -57,7 +57,7 @@ CREATE TABLE stagiaires_baccalaureats (
     annee_baccalaureat DATE NOT NULL,
     baccalaureat_id INT NOT NULL,
     PRIMARY KEY (stagiaire_id),
-    FOREIGN KEY (stagiaire_id) REFERENCES stagiaires(stagiaire_id),
+    FOREIGN KEY (stagiaire_id) REFERENCES stagiaires(stagiaire_id) ON DELETE CASCADE,
     FOREIGN KEY (baccalaureat_id) REFERENCES baccalaureats(baccalaureat_id)
 );
 
@@ -84,7 +84,7 @@ CREATE TABLE absences (
     justifie BOOLEAN DEFAULT FALSE,
     justification_id INT DEFAULT NULL,
     PRIMARY KEY (absence_id, stagiaire_id),
-    FOREIGN KEY (stagiaire_id) REFERENCES stagiaires(stagiaire_id),
+    FOREIGN KEY (stagiaire_id) REFERENCES stagiaires(stagiaire_id) ON DELETE CASCADE,
     FOREIGN KEY (justification_id) REFERENCES justifications(justification_id)
 );
 

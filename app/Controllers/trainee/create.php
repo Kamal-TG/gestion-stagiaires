@@ -39,5 +39,6 @@ view('trainee/index.view.php', [
     'filieres' => $filieres,
     'baccalaureats' => $baccalaureats,
     'success' => Session::get('success'),
+    'errors' => Session::get('errors'),
 ]);
 

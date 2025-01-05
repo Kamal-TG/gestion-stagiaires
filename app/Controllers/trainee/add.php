@@ -40,6 +40,8 @@ $db->query(
     ]
 );
 
-Session::flash('success', 'Satagiare a été ajoutée par succès.');
+Session::flash('success', 'Stagiaire a été ajouté par succès.');
 
-redirect('/trainee/create');
+$query = isset($_POST['old_filiere_id']) ? "?filiere_id={$_POST['old_filiere_id']}" : '';
+
+redirect("/trainee/create{$query}");

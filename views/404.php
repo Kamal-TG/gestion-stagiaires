@@ -1,5 +1,5 @@
-<?php require base_path('views/partials/head.view.php'); ?>
-<?php require base_path('views/partials/sidebar.view.php'); ?>
+<?php require_once base_path('views/partials/head.view.php'); ?>
+<?php require_once base_path('views/partials/sidebar.view.php'); ?>
 
 <!-- Content Wrapper -->
 <div id="content-wrapper" class="d-flex flex-column">
@@ -16,4 +16,4 @@
             </div>
 
 
-<?php require base_path('views/partials/footer.view.php');
+<?php require_once base_path('views/partials/footer.view.php');

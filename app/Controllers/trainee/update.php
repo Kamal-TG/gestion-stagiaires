@@ -1,5 +1,9 @@
 <?php
 
+use Core\App;
+use Core\Database;
+
+
 extract($_GET);
 $nom ??= 'Inconnue';
 $prenom ??= 'Inconnue';
@@ -10,13 +14,31 @@ $baccalaureat_intitule ??= 'Inconnue';
 $baccalaureat_code ??= 'Inconnue';
 $annee_baccalaureat ??= 'Inconnue';
 
-echo <<<HTML
-    <h4>$nom $prenom</h4>
-    <p><strong>Nom:</strong> $nom</p>
-    <p><strong>Prenom:</strong> $prenom</p>
-    <p><strong>Filiere:</strong> $filiere_intitule ($filiere_code)</p>
-    <p><strong>Année d'étude:</strong> $annee_etude</p>
-    <p><strong>Baccalaureat:</strong> $baccalaureat_intitule ($baccalaureat_code)</p>
-    <p><strong>Année d'obtention de baccalaureat:</strong> $annee_baccalaureat</p>
-HTML;
+$db = App::resolve(Database::class);
 
+$filieres = $db->query(
+    'SELECT filiere_id as id, intitule
+        FROM filieres
+    ORDER BY intitule'
+)->findAll();
+
+$baccalaureats = $db->query(
+    'SELECT baccalaureat_id as id, intitule
+        FROM baccalaureats
+    ORDER BY intitule'
+)->findAll();
+
+view('/trainee/partials/modal.trainee/update.view.php', [
+    'stagiaire_id' => $stagiaire_id,
+    'nom' => $nom,
+    'prenom' => $prenom,
+    'filiere_intitule' => $filiere_intitule,
+    'filiere_code' => $filiere_code,
+    'annee_etude' => $annee_etude,
+    'baccalaureat_intitule' => $baccalaureat_intitule,
+    'baccalaureat_code' => $baccalaureat_code,
+    'annee_baccalaureat' => $annee_baccalaureat,
+    'filieres' => $filieres,
+    'baccalaureats' => $baccalaureats,
+    'old_filiere_id' => $old_filiere_id,
+]);

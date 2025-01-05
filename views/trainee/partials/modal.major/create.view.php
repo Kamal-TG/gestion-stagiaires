@@ -9,21 +9,7 @@
                 </div>
                 <div class="modal-body">
                     <div class="form-container">
-
-                        <!-- Show error message -->
-                        <?php if (isset($errors['general'])): ?>
-                            <div class="alert alert-danger" role="alert">
-                                <?= $errors['general'] ?>
-                            </div>
-                        <?php endif ?>
-
-                        <!-- Show success message -->
-                        <?php if (isset($success)): ?>
-                            <div class="alert alert-success" role="alert">
-                                <?= $success ?>
-                            </div>
-                        <?php endif ?>
-
+                        
                         <div class="mb-3 inputIntitule">
                             <label class="col-form-label" for="intitule">Intitulé</label>
                             <input type="text" class="form-control" name="intitule" id="intitule" value="<?= $_POST['intitule'] ?? '' ?>" placeholder="Ex: Développement Digital" required>

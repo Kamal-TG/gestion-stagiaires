@@ -5,7 +5,7 @@ namespace Core\Middleware;
 use Core\Middleware\Guest;
 use Core\Middleware\Auth;
 
-class middleware
+class Middleware
 {
     private const MAP = [
         'guest' => Guest::class,

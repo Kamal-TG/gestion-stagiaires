@@ -1,7 +1,7 @@
-<?php require base_path('views/partials/head.view.php'); ?>
-<?php require base_path('views/partials/sidebar.view.php'); ?>
-<?php require base_path('views/partials/topbar.view.php'); ?>
-<?php require base_path('views/partials/heading.view.php'); ?>
+<?php require_once base_path('views/partials/head.view.php'); ?>
+<?php require_once base_path('views/partials/sidebar.view.php'); ?>
+<?php require_once base_path('views/partials/topbar.view.php'); ?>
+<?php require_once base_path('views/partials/heading.view.php'); ?>
 
 
 <!-- Content Row -->
@@ -176,4 +176,4 @@
 </script>
 
 
-<?php require base_path('views/partials/footer.view.php'); ?>
+<?php require_once base_path('views/partials/footer.view.php'); ?>

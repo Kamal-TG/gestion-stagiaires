@@ -1,14 +1,6 @@
 <?php
 
 extract($_GET);
-$nom ??= 'Inconnue';
-$prenom ??= 'Inconnue';
-$filiere_intitule ??= 'Inconnue';
-$filiere_code ??= 'Inconnue';
-$annee_etude ??= 'Inconnue';
-$baccalaureat_intitule ??= 'Inconnue';
-$baccalaureat_code ??= 'Inconnue';
-$annee_baccalaureat ??= 'Inconnue';
 
 view('trainee/partials/modal.trainee/show.view.php', [
     'nom' => $nom,
@@ -19,4 +11,8 @@ view('trainee/partials/modal.trainee/show.view.php', [
     'baccalaureat_intitule' => $baccalaureat_intitule,
     'baccalaureat_code' => $baccalaureat_code,
     'annee_baccalaureat' => $annee_baccalaureat,
+]);
+view('trainee/partials/modal.trainee/delete.view.php', [
+    'stagiaire_id' => $stagiaire_id,
+    'filiere_id' => $filiere_id,
 ]);

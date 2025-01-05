@@ -10,20 +10,6 @@
                 <div class="modal-body">
                     <div class="form-container">
 
-                        <!-- Show error message -->
-                        <?php if (isset($errors['general'])): ?>
-                            <div class="alert alert-danger" role="alert">
-                                <?= $errors['general'] ?>
-                            </div>
-                        <?php endif ?>
-
-                        <!-- Show success message -->
-                        <?php if (isset($success)): ?>
-                            <div class="alert alert-success" role="alert">
-                                <?= $success ?>
-                            </div>
-                        <?php endif ?>
-
                         <div class="mb-3 border-bottom">
                             <h6>Information Personnelles</h6>
                         </div>
@@ -89,6 +75,12 @@
                         </div>
                     </div>
                 </div>
+
+                <!-- Send old selected major -->
+                <?php if (isset($_GET['filiere_id'])) : ?>
+                    <input type="text" name="old_filiere_id" value="<?= $_GET['filiere_id'] ?>" hidden>
+                <?php endif ?>
+
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
                     <button type="submit" class="btn btn-primary">Ajouter</button>
