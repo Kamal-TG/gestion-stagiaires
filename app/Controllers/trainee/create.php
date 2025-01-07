@@ -14,9 +14,9 @@ if (isset($_GET['filiere_id'])) {
             INNER JOIN filieres f ON f.filiere_id = i.filiere_id
             INNER JOIN stagiaires_baccalaureats sb ON sb.stagiaire_id = s.stagiaire_id
             INNER JOIN baccalaureats b ON b.baccalaureat_id = sb.baccalaureat_id
-        WHERE f.filiere_id = :filiere_id',
+        WHERE f.filiere_id like :filiere_id',
         [
-            ':filiere_id' => $_GET['filiere_id'] ?? '',
+            ':filiere_id' => '%' . ($_GET['filiere_id'] ?? '') . '%',
         ]
     )->findAll();
 }

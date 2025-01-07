@@ -3,7 +3,7 @@
 <?php require_once base_path('views/partials/topbar.view.php'); ?>
 <?php require_once base_path('views/partials/heading.view.php'); ?>
 
-<form class="mb-4" autocomplete="off" action="/trainee/create" method="GET">
+<form class="mb-4" autocomplete="off" action="/absent/create" method="GET">
 
     <!-- Show error message -->
     <?php if (isset($errors['general'])): ?>
@@ -31,14 +31,6 @@
                 <?php endforeach ?>
             </select>
         </div>
-        <!-- <div class="col-auto">
-            <select class="form-select" name="annee_etude">
-                <option hidden disabled selected value> -- Année Etude -- </option>
-                <option value="1">1er année</option>
-                <option value="2">2ème année</option>
-                <option value="3">3ème année</option>
-            </select>
-        </div> -->
         <div class="col-auto">
             <button class="btn btn-primary">Récupérer</button>
         </div>
@@ -85,11 +77,9 @@
                         <th>Nom</th>
                         <th>Prénom</th>
                         <th>Année Étude</th>
-                        <th>Bac</th>
-                        <th>Année Bac</th>
-                        <th>Consulter</th>
-                        <th>Modifier</th>
-                        <th>Supprimer</th>
+                        <th>Historique</th>
+                        <th>absence</th>
+                        <th>Justifier</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -101,33 +91,31 @@
                                 <td class="align-middle"><?= $nom ?></td>
                                 <td class="align-middle"><?= $prenom ?></td>
                                 <td class="align-middle"><?= $annee_etude . ($annee_etude > 1 ? 'éme' : 'er') ?></td>
-                                <td class="align-middle" title="<?= $baccalaureat_intitule ?>"><?= $baccalaureat_code ?></td>
-                                <td class="align-middle"><?= explode('-', $annee_baccalaureat)[0] ?></td>
                                 <td>
                                     <a
-                                        href="/trainee/show?<?= http_build_query($stagiaire) ?>"
+                                        href="/absent/show?<?= http_build_query($stagiaire) ?>"
                                         class="send-query change-url btn btn-secondary btn-sm"
                                         data-bs-toggle="modal"
-                                        data-bs-target="#showTrainee">
+                                        data-bs-target="#showAbsent">
                                         <i class="bi bi-eye-fill"></i>
                                     </a>
                                 </td>
                                 <td>
                                     <a
-                                        href="/trainee/update?old_filiere_id=<?= $_GET['filiere_id'] ?? null ?>&<?= http_build_query($stagiaire) ?>"
-                                        class="send-query change-url btn btn-warning btn-sm"
+                                        href="/absent/add?old_filiere_id=<?= $_GET['filiere_id'] ?? null ?>&<?= http_build_query($stagiaire) ?>"
+                                        class="send-query change-url btn btn-danger btn-sm"
                                         data-bs-toggle="modal"
-                                        data-bs-target="#updateTrainee">
-                                        <i class="bi bi-pencil-square"></i>
+                                        data-bs-target="#addAbsent">
+                                        <i class="bi bi-plus-square-fill"></i>
                                     </a>
                                 </td>
                                 <td>
                                     <a
-                                        href="/trainee/delete?filiere_id=<?= $_GET['filiere_id'] ?? null ?>&<?= http_build_query($stagiaire) ?>"
-                                        class="send-query change-url btn btn-danger btn-sm"
+                                        href="/absent/justify/create?old_filiere_id=<?= $_GET['filiere_id'] ?? null ?>&<?= http_build_query($stagiaire) ?>"
+                                        class="send-query change-url btn btn-success btn-sm"
                                         data-bs-toggle="modal"
-                                        data-bs-target="#deleteTrainee">
-                                        <i class="bi bi-trash3-fill"></i>
+                                        data-bs-target="#addJustification">
+                                        <i class="bi bi-file-break-fill"></i>
                                     </a>
                                 </td>
                             </tr>
@@ -152,34 +140,26 @@
     </div>
     <div class="sub-button shadow">
         <!-- Button trigger modal -->
-        <span data-bs-toggle="modal" data-bs-target="#addTrainee">
-            <button type="button" class="btn btn-primary" data-bs-toggle="tooltip" data-bs-placement="left" data-bs-title="Ajouter un stagiaire">
-                <i class="bi bi-person-plus-fill text-white fs-4"></i>
-            </button>
-        </span>
-    </div>
-    <div class="sub-button shadow">
-        <!-- Button trigger modal -->
-        <span data-bs-toggle="modal" data-bs-target="#addMajor">
-            <button type="button" class="btn btn-primary" data-bs-toggle="tooltip" data-bs-placement="left" data-bs-title="Ajouter un filiére">
-                <i class="bi bi-lightbulb-fill text-white fs-4"></i>
+        <span data-bs-toggle="modal" data-bs-target="#addJustificationType">
+            <button type="button" class="btn btn-primary" data-bs-toggle="tooltip" data-bs-placement="left" data-bs-title="Ajouter un type de justification">
+                <i class="bi bi-file-break-fill text-white fs-4"></i>
             </button>
         </span>
     </div>
 </div>
 
 <!-- Modals for floating actions -->
-<?php require_once base_path('views/trainee/partials/modal.major/create.view.php') ?>
-<?php require_once base_path('views/trainee/partials/modal.trainee/create.view.php') ?>
+<?php require_once base_path('views/absent/partials/modal.justification_type/create.view.php') ?>
+
 
 <!-- Modals table -->
 
-<!-- Modal showTrainee -->
-<div class="modal fade" id="showTrainee" tabindex="-1" aria-labelledby="showTraineeLabel" aria-hidden="true">
-    <div class="modal-dialog">
+<!-- Modal showAbsent -->
+<div class="modal fade" id="showAbsent" tabindex="-1" aria-labelledby="showAbsentLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl">
         <div class="modal-content">
             <div class="modal-header">
-                <h1 class="modal-title fs-5" id="showTraineeLabel">Informations Stagiaire</h1>
+                <h1 class="modal-title fs-5" id="showAbsentLabel">Liste des absences</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
@@ -192,44 +172,42 @@
     </div>
 </div>
 
-<!-- Modal updateTrainee -->
-<div class="modal fade" id="updateTrainee" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-    <div class="modal-dialog">
+<!-- Modal addAbsent -->
+<div class="modal fade" id="addAbsent" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
-                <h1 class="modal-title fs-5" id="updateTraineeLabel">Modifier Informations</h1>
+                <h1 class="modal-title fs-5" id="addAbsentLabel">Ajouter absence</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <form action="/trainee/update" method="POST">
-                <input type="text" name='_method' value="PUT" hidden>
+            <form action="/absent/add" method="POST">
                 <div class="modal-body">
                     <!-- Insert Content Here -->
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">Modifier</button>
+                    <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">Ajouter</button>
                 </div>
             </form>
         </div>
     </div>
 </div>
 
-<!-- Modal deleteTrainee -->
-<div class="modal fade" id="deleteTrainee" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+<!-- Modal addJustification -->
+<div class="modal fade" id="addJustification" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h1 class="modal-title fs-5" id="deleteTraineeLabel">Confirmer Suppression</h1>
+                <h1 class="modal-title fs-5" id="addJustificationLabel">Justifier absence</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <form action="/trainee/delete" method="POST">
-                <input type="text" name='_method' value="DELETE" hidden>
+            <form action="/absent/justify/add" method="POST" enctype="multipart/form-data">
                 <div class="modal-body">
                     <!-- Insert Content Here -->
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-danger" data-bs-dismiss="modal">Supprimer</button>
+                    <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">Ajouter</button>
                 </div>
             </form>
         </div>

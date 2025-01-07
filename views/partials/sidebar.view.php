@@ -41,7 +41,7 @@
 
             <!-- Nav Item -->
             <li class="nav-item">
-                <a class="nav-link" href="#">
+                <a class="nav-link" href="/absent/create">
                     <i class="fas fa-calendar-alt"></i>
                     <span>Gestion des absences</span></a>
             </li>

@@ -11,7 +11,7 @@ const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstra
 // Store the original URL when the page loads
 const originalUrl = window.location.href;
 
-const anchorElements = document.querySelectorAll(".send-idx")
+const anchorElements = document.querySelectorAll(".send-query");
 anchorElements.forEach((anchor) => {
     anchor.addEventListener("click", (event) => {
         event.preventDefault()
