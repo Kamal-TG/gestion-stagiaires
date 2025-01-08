@@ -12,7 +12,7 @@ $absences = $db->query(
         FROM absences a
         LEFT JOIN justifications j ON a.justification_id = j.justification_id
         LEFT JOIN justifications_types jt ON j.justification_type_id = jt.justification_type_id
-    WHERE stagiaire_id = :stagiaire_id',
+    WHERE a.stagiaire_id = :stagiaire_id',
     [
         ':stagiaire_id' => $stagiaire_id,
     ]

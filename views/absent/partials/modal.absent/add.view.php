@@ -10,8 +10,8 @@
         </div>
     </div>
 
-    <input type="text" name="stagiaire_id" value="<?= $stagiaire_id ?>" hidden>
-    <input type="text" name="old_filiere_id" value="<?= $old_filiere_id ?>" hidden>
+    <input type="text" name="stagiaire_id" value="<?= $stagiaire_id ?>" required hidden>
+    <input type="text" name="old_filiere_id" value="<?= $old_filiere_id ?>" required hidden>
 
     <div class="row">
         <div class="col-4">
@@ -20,7 +20,7 @@
         </div>
 
         <div class="col">
-            <input class="form-control mb-3" type="date" id="date_absence" name="date_absence" value="<?php echo date('Y-m-d'); ?>" max="<?php echo date('Y-m-d'); ?>" required>
+            <input class="form-control mb-3" type="date" id="date_absence" name="date_absence" value="<?= date('Y-m-d') ?>" max="<?= date('Y-m-d') ?>" required>
             <input class="form-control" type="number" id="nombre_heures" name="nombre_heures" min="1" max="10" required>
         </div>
     </div>

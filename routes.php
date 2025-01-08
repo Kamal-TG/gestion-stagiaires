@@ -33,4 +33,6 @@ $router->get('/absent/justify/create', '/absent/justify/create.php');
 $router->post('/absent/justify/add', '/absent/justify/add.php');
 /* Justify type */
 // add
-$router->post('/absent/justify/types/add', '/absent/justify/types/add.php');
+$router->post('/absent/types/add', '/absent/types/add.php');
+
+$router->get('/absent/justify/show', '/absent/justify/show.php');

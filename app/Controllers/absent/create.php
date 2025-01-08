@@ -25,10 +25,19 @@ $filieres = $db->query(
     ORDER BY intitule'
 )->findAll();
 
+$justifications_types = $db->query(
+    'SELECT type
+        FROM justifications_types
+    '
+)->findAll();
+
+$justifications_types = array_column($justifications_types, 'type');
+
 view('absent/index.view.php', [
     'heading' => 'Gestion des abscenes',
     'stagiaires' => $stagiaires ?? null,
     'filieres' => $filieres,
     'success' => Session::get('success'),
     'errors' => Session::get('errors'),
+    'justifications_types' => $justifications_types,
 ]);

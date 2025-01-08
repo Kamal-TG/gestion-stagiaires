@@ -27,7 +27,7 @@
                 </tr>
             </thead>
             <tbody>
-                <?php if (isset($absences)) : ?>
+                <?php if (isset($absences) && !empty($absences)) : ?>
                     <?php foreach ($absences as $absence) : ?>
                         <?php extract($absence) ?>
                         <tr>
@@ -41,7 +41,9 @@
                                 <?php endif ?>
                             <td>
                                 <?php if ($document) : ?>
-                                    <i class="bi bi-filetype-pdf"></i>
+                                    <a href="/absent/justify/show?document=<?= $document ?>" target="_blank">
+                                        <i class="bi bi-filetype-pdf text-primary fs-5"></i>
+                                    </a>
                                 <?php endif ?>
                             </td>
                             <td><?= $type ?></td>

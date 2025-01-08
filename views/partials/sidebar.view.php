@@ -11,7 +11,7 @@
                 <div class="sidebar-brand-icon">
                     <img class="img-fluid" src="/assets/img/ofppt-logo.png" alt="ofppt logo">
                 </div>
-                <div class="sidebar-brand-text mx-3">OFPPT</div>
+                <div class="sidebar-brand-text mx-3 fs-3">OFPPT</div>
             </a>
 
             <!-- Divider -->

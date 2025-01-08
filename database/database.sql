@@ -68,11 +68,13 @@ CREATE TABLE justifications_types (
 
 CREATE TABLE justifications (
     justification_id INT AUTO_INCREMENT PRIMARY KEY,
+    stagiaire_id INT DEFAULT NULL,
     date_debut DATE NOT NULL,
     date_fin DATE NOT NULL,
     details TEXT DEFAULT NULL,
     document VARCHAR(255) UNIQUE,
     justification_type_id INT NOT NULL,
+    FOREIGN KEY (stagiaire_id) REFERENCES stagiaires(stagiaire_id),
     FOREIGN KEY (justification_type_id) REFERENCES justifications_types(justification_type_id)
 );
 
@@ -85,7 +87,7 @@ CREATE TABLE absences (
     justification_id INT DEFAULT NULL,
     PRIMARY KEY (absence_id, stagiaire_id),
     FOREIGN KEY (stagiaire_id) REFERENCES stagiaires(stagiaire_id) ON DELETE CASCADE,
-    FOREIGN KEY (justification_id) REFERENCES justifications(justification_id)
+    FOREIGN KEY (justification_id) REFERENCES justifications(justification_id) ON DELETE CASCADE
 );
 
 insert into filieres values

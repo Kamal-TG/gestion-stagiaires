@@ -21,5 +21,6 @@ view('/absent/partials/modal.justify/create.view.php', [
     'annee_etude' => $annee_etude,
     'justifications_types' => $justifications_types,
     'old_filiere_id' => $old_filiere_id,
+    'stagiaire_id' => $stagiaire_id,
 ]);
 

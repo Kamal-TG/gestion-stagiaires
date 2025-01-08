@@ -46,23 +46,15 @@
     <form>
         <div class="filters row my-1 mx-2">
             <p class="text-muted mb-1">Filteres</p>
-            <div class="col-3">
+            <div class="col-auto">
                 <input type="text" class="form-control" id="name" placeholder="Nom/Prénom">
             </div>
-            <div class="col-2">
+            <div class="col-auto">
                 <select class="form-select" id="annee_etude">
                     <option selected value="">Tous Années Études</option>
                 </select>
             </div>
-            <div class="col-4">
-                <select class="form-select" id="code_bac">
-                    <option selected value="">Tous Series Bac</option>
-                </select>
-            </div>
-            <div class="col-2">
-                <input class="form-control" type="text" pattern="\d*" maxlength="4" id="annee_bac" placeholder="Année Bac">
-            </div>
-            <div class="col-1">
+            <div class="col-auto">
                 <button type="reset" class="btn btn-secondary">Reset</button>
             </div>
         </div>

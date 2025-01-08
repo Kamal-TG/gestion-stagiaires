@@ -2,7 +2,7 @@
 <div class="modal fade" id="addJustificationType" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="addJustificationTypeLabel" aria-hidden="true">
     <div class="modal-dialog modal-centered">
         <div class="modal-content">
-            <form id="register-form" action="/absent/justify/types/add" method="POST">
+            <form id="register-form" action="/absent/types/add" method="POST" autocomplete="off">
                 <div class="modal-header">
                     <h1 class="modal-title fs-5" id="addJustificationTypeLabel">Ajouter Justification Type</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -10,14 +10,14 @@
                 <div class="modal-body">
                     <div class="form-container">
 
-                        <input type="text" name="old_filiere_id" value="<?= $_GET['filiere_id'] ?>" hidden>
+                        <input type="text" name="old_filiere_id" value="<?= $_GET['filiere_id'] ?? '' ?>" hidden>
 
                         <div class="row">
                             <div class="col-auto">
                                 <label for="justification_type" class="col-form-label">Nouveau type</label>
                             </div>
                             <div class="col">
-                                <input type="text" class="form-control" id="justification_type" name="justification_type">
+                                <input type="text" class="form-control" id="justification_type" name="justification_type" required>
                             </div>
                         </div>
 
@@ -26,7 +26,7 @@
                         <h6>Type existants:</h6>
                         <div class="types">
                             <ul class="list">
-                                <?php if (isset($justifications_types) && empty($justifications_types)) : ?>
+                                <?php if (isset($justifications_types) && !empty($justifications_types)) : ?>
                                     <?php foreach ($justifications_types as $justification_type) : ?>
                                         <li><?= $justification_type ?></li>
                                     <?php endforeach ?>

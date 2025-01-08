@@ -4,36 +4,61 @@ use Core\App;
 use Core\Database;
 use Core\Session;
 
+
+function getDateFormat($date, $format = 'Y.m.d') {
+    return (new DateTime($date))->format($format);
+}
+
 extract($_POST);
 
-function errorRedirect($msg) {
-    Session::flash('errors', [
-        'general' => $msg
-    ]);
-    redirect("/absent/create?filiere_id={$old_filiere_id}");
+// justification = name#id
+[$justification_name, $justification_id] = explode('#', $justification);;
+
+function errorRedirect($msg, $filiere_id) {
+    Session::flash('errors', ['general' => $msg]);
+    redirect("/absent/create?filiere_id={$filiere_id}");
+}
+
+if ((new DateTime($date_debut)) > (new DateTime($date_fin))) {
+    errorRedirect('Date fin doit supérieur de date fin!', $old_filiere_id);
 }
 
 if (empty($_FILES)) {
-    errorRedirect('$_FILES is empty - is file_uploads enabled in php.ini?');
+    errorRedirect('$_FILES is empty - is file_uploads enabled in php.ini?', $old_filiere_id);
 }
 
 if ($_FILES['document']['size'] > 1_048_576) {
-    errorRedirect('File too large (max 1MB)');
+    errorRedirect('File too large (max 1MB)', $old_filiere_id);
 }
 
 $mime_types = ['application/pdf'];
 if (!in_array($_FILES['document']['type'], $mime_types)) {
-    errorRedirect('Invalid file type');
+    errorRedirect('Invalid file type', $old_filiere_id);
 }
 
 $pathinfo = pathinfo($_FILES['document']['name']);
 
-// remove forbidden characters
-$base = $pathinfo['filename'];
-$base = preg_replace('/[^\w-]/', '_', $base);
+$filename = str_replace(
+    ' ',
+    '-',
+    join(
+        '_',
+        [
+            (getDateFormat($date_debut) . '-' . getDateFormat($date_fin)),
+            $justification_name,
+            $name,
+            $filiere_intitule,
+            $annee_etude
+        ]
+    )
+) . '.pdf';
 
-$filename = $base . '.' . $pathinfo['extension'];
-$destination = BASE_PATH . DIRECTORY_SEPARATOR . 'uploads' . DIRECTORY_SEPARATOR . $filename;
+$destination =
+    BASE_PATH . DIRECTORY_SEPARATOR
+    . 'uploads' . DIRECTORY_SEPARATOR
+    . 'justifications' . DIRECTORY_SEPARATOR
+    . $filename
+;
 
 $i = 1;
 
@@ -44,21 +69,39 @@ while (file_exists($destination)) {
 }
 
 if (! move_uploaded_file($_FILES['document']['tmp_name'], $destination)) {
-    errorRedirect('Can\'t move uploaded file');
+    errorRedirect('Can\'t move uploaded file', $old_filiere_id);
 }
 
 $document = $destination;
 
 $db = App::resolve(Database::class);
-$db->query(
+
+// insert justification
+$justification_id = $db->query(
     'INSERT INTO justifications
-    VALUES (DEFAULT, :date_debut, :date_fin, :details, :document, :justification_type)',
+    VALUES (DEFAULT, :stagiaire_id, :date_debut, :date_fin, :details, :document, :justification_id)',
     [
+        'stagiaire_id' => $stagiaire_id,
         ':date_debut' => $date_debut,
         ':date_fin' => $date_fin,
         ':details' => $details,
         ':document' => $document,
-        ':justification_type' => $justification_type,
+        ':justification_id' => $justification_id,
+    ]
+)->lastInsertId();
+
+$db->query(
+    'UPDATE absences
+        SET justifie = TRUE,
+            justification_id = :justification_id
+    WHERE stagiaire_id = :stagiaire_id
+        AND date_absence BETWEEN :date_debut AND :date_fin
+    ',
+    [
+        ':justification_id' => $justification_id,
+        ':stagiaire_id' => $stagiaire_id,
+        ':date_debut' => $date_debut,
+        ':date_fin' => $date_fin,
     ]
 );
 

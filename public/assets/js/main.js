@@ -60,51 +60,62 @@ const tableBody = table.tBodies[0]
 const tableRows = tableBody.rows
 
 const filters = [
-    {
-        id: 'name',
-        targetColumns: [1, 2],
-        searchQuery: '',
-        rowsToHide: []
-    },
-    {
-        id: 'annee_etude',
-        targetColumns: [4],
-        searchQuery: '',
-        rowsToHide: []
-    },
-    {
-        id: 'code_bac',
-        targetColumns: [5],
-        searchQuery: '',
-        rowsToHide: []
-    },
-    {
-        id: 'annee_bac',
-        targetColumns: [6],
-        searchQuery: '',
-        rowsToHide: []
-    },
-]
+  {
+    id: "name",
+    targetColumns: ["Nom", "Prénom"],
+    searchQuery: "",
+    rowsToHide: [],
+  },
+  {
+    id: "annee_etude",
+    targetColumns: ["Année Étude"],
+    searchQuery: "",
+    rowsToHide: [],
+  },
+  {
+    id: "code_bac",
+    targetColumns: ["Bac"],
+    searchQuery: "",
+    rowsToHide: [],
+  },
+  {
+    id: "annee_bac",
+    targetColumns: ["Année Bac"],
+    searchQuery: "",
+    rowsToHide: [],
+  },
+];
 
 /**
  * add event listeners to each filter
  * Also fill select
- */ 
+*/ 
 filters.forEach((filter) => {
     const input = document.querySelector(`.filters #${filter.id}`)
     const eventToHandle = input.tagName.toLowerCase() === "input" ? "input" : "change"
+    
+    // get index of each column
+    let columnsIndex = []
+    filter.targetColumns.forEach((column) => {
+        columnsIndex.push(getIndexOfColumn(column))
+    })
+    
     input.addEventListener(eventToHandle, (event) => {
         const searchQuery = event.currentTarget.value.trim().toLowerCase()
-        filter.rowsToHide = getVisibleRows(searchQuery, filter.targetColumns)
+        filter.rowsToHide = getVisibleRows(searchQuery, columnsIndex)
         showVisibleRowsOnly()
     })
 
     // add options for select
-    if (input.tagName.toLowerCase() === "select" && filter.targetColumns.length === 1) {
-        addOptionsFromTable(input, filter.targetColumns[0], filter.id === "code_bac")
+    if (input.tagName.toLowerCase() === "select" && columnsIndex.length === 1) {
+        addOptionsFromTable(input, columnsIndex[0], filter.id === "code_bac")
     }
 })
 
+function getIndexOfColumn(columnName) {
+    const tableHead = Array.from(table.tHead.rows[0].cells)
+    return tableHead.indexOf(tableHead.find((head) => head.textContent === columnName))
+}
 
 function addOptionsFromTable(element, columnIndex, useTitle = false) {
   const sorted = Array.from(tableRows).sort((a, b) =>
