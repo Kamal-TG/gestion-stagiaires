@@ -2,6 +2,8 @@
 
 namespace Core;
 
+use Core\Middleware\Middleware;
+
 class Router
 {
     private $routes = [];
@@ -11,7 +13,8 @@ class Router
         $this->routes[] = [
             'method' => $method,
             'uri' => $uri,
-            'controller' => $controller
+            'controller' => $controller,
+            'middleware' => null
         ];
 
         return $this;
@@ -42,15 +45,30 @@ class Router
         return $this->add('PUT', $uri, $controller);
     }
 
+    public function only($key)
+    {
+        // current route
+        $this->routes[array_key_last($this->routes)]['middleware'] = $key;
+        return $this;
+    }
+
     public function route($uri, $method)
     {
         foreach ($this->routes as $route) {
             if ($route['uri'] === $uri && $route['method'] === strtoupper($method)) {
-                return require base_path('App/Controllers/' . $route['controller']);
+                // apply the middleware
+                Middleware::resolve($route['middleware']);
+
+                return require base_path('app/Controllers/' . $route['controller']);
             }
         }
 
         $this->abort();
+    }
+
+    public function previousUrl()
+    {
+        return $_SERVER['HTTP_REFERER'];
     }
 
     private function abort($code = Response::NOT_FOUND)
