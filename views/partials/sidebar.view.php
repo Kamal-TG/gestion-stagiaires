@@ -48,7 +48,7 @@
 
             <!-- Nav Item -->
             <li class="nav-item">
-                <a class="nav-link" href="#">
+                <a class="nav-link" href="/notes/create">
                     <i class="bi bi-file-earmark-check-fill"></i>
                     <span>Gestion des notes</span></a>
             </li>

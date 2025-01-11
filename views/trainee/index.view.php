@@ -31,14 +31,6 @@
                 <?php endforeach ?>
             </select>
         </div>
-        <!-- <div class="col-auto">
-            <select class="form-select" name="annee_etude">
-                <option hidden disabled selected value> -- Année Etude -- </option>
-                <option value="1">1er année</option>
-                <option value="2">2ème année</option>
-                <option value="3">3ème année</option>
-            </select>
-        </div> -->
         <div class="col-auto">
             <button class="btn btn-primary">Récupérer</button>
         </div>
@@ -48,33 +40,31 @@
 <!-- DataTales Example -->
 <div class="card shadow mb-4">
     <div class="card-header py-3">
-        <h6 class="m-0 font-weight-bold text-primary">Table de données des stagiaires</h6>
-    </div>
-
-    <form>
-        <div class="filters row my-1 mx-2">
+        <form>
             <p class="text-muted mb-1">Filteres</p>
-            <div class="col-3">
-                <input type="text" class="form-control" id="name" placeholder="Nom/Prénom">
+            <div class="filters row">
+                <div class="col-3">
+                    <input type="text" class="form-control" id="name" placeholder="Nom/Prénom">
+                </div>
+                <div class="col-2">
+                    <select class="form-select" id="annee_etude">
+                        <option selected value="">Tous Années Études</option>
+                    </select>
+                </div>
+                <div class="col-4">
+                    <select class="form-select" id="code_bac">
+                        <option selected value="">Tous Series Bac</option>
+                    </select>
+                </div>
+                <div class="col-2">
+                    <input class="form-control" type="text" pattern="\d*" maxlength="4" id="annee_bac" placeholder="Année Bac">
+                </div>
+                <div class="col-1">
+                    <button type="reset" class="btn btn-secondary">Reset</button>
+                </div>
             </div>
-            <div class="col-2">
-                <select class="form-select" id="annee_etude">
-                    <option selected value="">Tous Années Études</option>
-                </select>
-            </div>
-            <div class="col-4">
-                <select class="form-select" id="code_bac">
-                    <option selected value="">Tous Series Bac</option>
-                </select>
-            </div>
-            <div class="col-2">
-                <input class="form-control" type="text" pattern="\d*" maxlength="4" id="annee_bac" placeholder="Année Bac">
-            </div>
-            <div class="col-1">
-                <button type="reset" class="btn btn-secondary">Reset</button>
-            </div>
-        </div>
-    </form>
+        </form>
+    </div>
 
     <div class="card-body">
         <div class="table-responsive">
@@ -114,7 +104,7 @@
                                 </td>
                                 <td>
                                     <a
-                                        href="/trainee/update?old_filiere_id=<?= $_GET['filiere_id'] ?? null ?>&<?= http_build_query($stagiaire) ?>"
+                                        href="/trainee/update?filiere_id=<?= $_GET['filiere_id'] ?? null ?>&<?= http_build_query($stagiaire) ?>"
                                         class="send-query change-url btn btn-warning btn-sm"
                                         data-bs-toggle="modal"
                                         data-bs-target="#updateTrainee">
@@ -169,8 +159,8 @@
 </div>
 
 <!-- Modals for floating actions -->
-<?php require_once base_path('views/trainee/partials/modal.major/create.view.php') ?>
-<?php require_once base_path('views/trainee/partials/modal.trainee/create.view.php') ?>
+<?php require_once base_path('views/trainee/modals/major/create.view.php') ?>
+<?php require_once base_path('views/trainee/modals/trainee/create.view.php') ?>
 
 <!-- Modals table -->
 

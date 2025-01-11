@@ -44,4 +44,4 @@ $db->query(
 
 Session::flash('success', 'Stagiaire a été modifié par succès.');
 
-redirect("/trainee/create?filiere_id={$_POST['old_filiere_id']}");
+redirect("/trainee/create?filiere_id={$_POST['filiere_id']}");

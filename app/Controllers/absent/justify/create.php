@@ -14,13 +14,13 @@ $justifications_types = $db->query(
     '
 )->findAll();
 
-view('/absent/partials/modal.justify/create.view.php', [
+view('/absent/modals/justify/create.view.php', [
     'nom' => $nom,
     'prenom' => $prenom,
     'filiere_intitule' => $filiere_intitule,
     'annee_etude' => $annee_etude,
     'justifications_types' => $justifications_types,
-    'old_filiere_id' => $old_filiere_id,
+    'filiere_id' => $filiere_id,
     'stagiaire_id' => $stagiaire_id,
 ]);
 

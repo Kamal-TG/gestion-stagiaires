@@ -10,7 +10,7 @@ $baccalaureat_intitule ??= 'Inconnue';
 $baccalaureat_code ??= 'Inconnue';
 $annee_baccalaureat ??= 'Inconnue';
 
-view('trainee/partials/modal.trainee/show.view.php', [
+view('trainee/modals/trainee/show.view.php', [
     'nom' => $nom,
     'prenom' => $prenom,
     'filiere_intitule' => $filiere_intitule,

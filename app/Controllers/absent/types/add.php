@@ -16,5 +16,5 @@ $db->query(
     ]
 );
 
-redirect("/absent/create?filiere_id={$old_filiere_id}");
+redirect("/absent/create?filiere_id={$filiere_id}");
 

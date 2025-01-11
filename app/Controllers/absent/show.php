@@ -18,7 +18,7 @@ $absences = $db->query(
     ]
 )->findAll();
 
-view('absent/partials/modal.absent/show.view.php', [
+view('absent/modals/absent/show.view.php', [
     'nom' => $nom,
     'prenom' => $prenom,
     'filiere_intitule' => $filiere_intitule,

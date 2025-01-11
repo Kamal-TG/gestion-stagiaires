@@ -13,12 +13,12 @@ CREATE TABLE filieres (
 
 CREATE TABLE modules (
     module_id INT AUTO_INCREMENT,
-    intitule VARCHAR(50) NOT NULL,
-    code VARCHAR(50) NOT NULL,
+    intitule VARCHAR(100) UNIQUE,
+    code VARCHAR(50) UNIQUE,
     coefficient TINYINT UNSIGNED NOT NULL,
     filiere_id INT NOT NULL,
     PRIMARY KEY (module_id, filiere_id),
-    FOREIGN KEY (filiere_id) REFERENCES filieres(filiere_id)
+    FOREIGN KEY (filiere_id) REFERENCES filieres(filiere_id) ON DELETE CASCADE
 );
 
 CREATE TABLE baccalaureats (
@@ -36,10 +36,10 @@ CREATE TABLE stagiaires (
 CREATE TABLE inscriptions (
     stagiaire_id INT NOT NULL,
     annee_etude TINYINT UNSIGNED NOT NULL,
-    filiere_id INT NOT NULL,
+    filiere_id INT,
     PRIMARY KEY (stagiaire_id),
     FOREIGN KEY (stagiaire_id) REFERENCES stagiaires(stagiaire_id) ON DELETE CASCADE,
-    FOREIGN KEY (filiere_id) REFERENCES filieres(filiere_id)
+    FOREIGN KEY (filiere_id) REFERENCES filieres(filiere_id) ON DELETE SET NULL
 );
 
 CREATE TABLE notes (
@@ -49,16 +49,16 @@ CREATE TABLE notes (
     note DECIMAL(5, 2) NOT NULL,
     PRIMARY KEY (stagiaire_id, filiere_id, module_id),
     FOREIGN KEY (stagiaire_id) REFERENCES stagiaires(stagiaire_id) ON DELETE CASCADE,
-    FOREIGN KEY (filiere_id, module_id) REFERENCES modules(filiere_id, module_id)
+    FOREIGN KEY (filiere_id, module_id) REFERENCES modules(filiere_id, module_id) ON DELETE CASCADE
 );
 
 CREATE TABLE stagiaires_baccalaureats (
     stagiaire_id INT NOT NULL,
     annee_baccalaureat DATE NOT NULL,
-    baccalaureat_id INT NOT NULL,
+    baccalaureat_id INT,
     PRIMARY KEY (stagiaire_id),
     FOREIGN KEY (stagiaire_id) REFERENCES stagiaires(stagiaire_id) ON DELETE CASCADE,
-    FOREIGN KEY (baccalaureat_id) REFERENCES baccalaureats(baccalaureat_id)
+    FOREIGN KEY (baccalaureat_id) REFERENCES baccalaureats(baccalaureat_id) ON DELETE SET NULL
 );
 
 CREATE TABLE justifications_types (
@@ -68,14 +68,14 @@ CREATE TABLE justifications_types (
 
 CREATE TABLE justifications (
     justification_id INT AUTO_INCREMENT PRIMARY KEY,
-    stagiaire_id INT DEFAULT NULL,
+    stagiaire_id INT NOT NULL,
     date_debut DATE NOT NULL,
     date_fin DATE NOT NULL,
     details TEXT DEFAULT NULL,
     document VARCHAR(255) UNIQUE,
-    justification_type_id INT NOT NULL,
-    FOREIGN KEY (stagiaire_id) REFERENCES stagiaires(stagiaire_id),
-    FOREIGN KEY (justification_type_id) REFERENCES justifications_types(justification_type_id)
+    justification_type_id INT,
+    FOREIGN KEY (stagiaire_id) REFERENCES stagiaires(stagiaire_id) ON DELETE CASCADE,
+    FOREIGN KEY (justification_type_id) REFERENCES justifications_types(justification_type_id) ON DELETE SET NULL
 );
 
 CREATE TABLE absences (
@@ -87,7 +87,7 @@ CREATE TABLE absences (
     justification_id INT DEFAULT NULL,
     PRIMARY KEY (absence_id, stagiaire_id),
     FOREIGN KEY (stagiaire_id) REFERENCES stagiaires(stagiaire_id) ON DELETE CASCADE,
-    FOREIGN KEY (justification_id) REFERENCES justifications(justification_id) ON DELETE CASCADE
+    FOREIGN KEY (justification_id) REFERENCES justifications(justification_id) ON DELETE SET NULL
 );
 
 insert into filieres values

@@ -27,6 +27,8 @@ $router->get('/absent/add', '/absent/add.php');
 $router->post('/absent/add', '/absent/add.php');
 // show
 $router->get('/absent/show', '/absent/show.php');
+// delete
+$router->get('/absent/delete', '/absent/delete.php');
 /* Justify */
 // add
 $router->get('/absent/justify/create', '/absent/justify/create.php');
@@ -34,5 +36,19 @@ $router->post('/absent/justify/add', '/absent/justify/add.php');
 /* Justify type */
 // add
 $router->post('/absent/types/add', '/absent/types/add.php');
-
+// show
 $router->get('/absent/justify/show', '/absent/justify/show.php');
+
+/* Notes */
+// index
+$router->get('/notes/create', '/notes/create.php');
+// show
+$router->get('/notes/show', '/notes/show.php');
+// update
+$router->put('/notes/update', '/notes/update.php');
+/* Modules */
+// add
+$router->get('/notes/modules/add', '/notes/modules/add.php');
+$router->post('/notes/modules/add', '/notes/modules/add.php');
+$router->get('/notes/modules/show', '/notes/modules/show.php');
+

@@ -28,7 +28,7 @@ $baccalaureats = $db->query(
     ORDER BY intitule'
 )->findAll();
 
-view('/trainee/partials/modal.trainee/update.view.php', [
+view('/trainee/modals/trainee/update.view.php', [
     'stagiaire_id' => $stagiaire_id,
     'nom' => $nom,
     'prenom' => $prenom,
@@ -40,5 +40,5 @@ view('/trainee/partials/modal.trainee/update.view.php', [
     'annee_baccalaureat' => $annee_baccalaureat,
     'filieres' => $filieres,
     'baccalaureats' => $baccalaureats,
-    'old_filiere_id' => $old_filiere_id,
+    'filiere_id' => $filiere_id,
 ]);

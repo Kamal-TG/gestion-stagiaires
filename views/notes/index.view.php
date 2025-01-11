@@ -3,7 +3,7 @@
 <?php require_once base_path('views/partials/topbar.view.php'); ?>
 <?php require_once base_path('views/partials/heading.view.php'); ?>
 
-<form class="mb-4" autocomplete="off" action="/absent/create" method="GET">
+<form class="mb-4" autocomplete="off" action="/notes/create" method="GET">
 
     <!-- Show error message -->
     <?php if (isset($errors['general'])): ?>
@@ -67,9 +67,7 @@
                         <th>Nom</th>
                         <th>Prénom</th>
                         <th>Année Étude</th>
-                        <th>Historique</th>
-                        <th>absence</th>
-                        <th>Justifier</th>
+                        <th>Notes</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -83,29 +81,11 @@
                                 <td class="align-middle"><?= $annee_etude . ($annee_etude > 1 ? 'éme' : 'er') ?></td>
                                 <td>
                                     <a
-                                        href="/absent/show?filiere_id=<?= $_GET['filiere_id'] ?>&<?= http_build_query($stagiaire) ?>"
-                                        class="send-query change-url btn btn-secondary btn-sm"
+                                        href="/notes/show?filiere_id=<?= $_GET['filiere_id'] ?>&<?= http_build_query($stagiaire) ?>"
+                                        class="send-query change-url btn btn-info btn-sm"
                                         data-bs-toggle="modal"
-                                        data-bs-target="#showAbsent">
-                                        <i class="bi bi-eye-fill"></i>
-                                    </a>
-                                </td>
-                                <td>
-                                    <a
-                                        href="/absent/add?filiere_id=<?= $_GET['filiere_id'] ?? null ?>&<?= http_build_query($stagiaire) ?>"
-                                        class="send-query change-url btn btn-danger btn-sm"
-                                        data-bs-toggle="modal"
-                                        data-bs-target="#addAbsent">
-                                        <i class="bi bi-plus-square-fill"></i>
-                                    </a>
-                                </td>
-                                <td>
-                                    <a
-                                        href="/absent/justify/create?filiere_id=<?= $_GET['filiere_id'] ?? null ?>&<?= http_build_query($stagiaire) ?>"
-                                        class="send-query change-url btn btn-success btn-sm"
-                                        data-bs-toggle="modal"
-                                        data-bs-target="#addJustification">
-                                        <i class="bi bi-file-break-fill"></i>
+                                        data-bs-target="#showNotes">
+                                        <i class="bi bi-list-check"></i>
                                     </a>
                                 </td>
                             </tr>
@@ -130,68 +110,29 @@
     </div>
     <div class="sub-button shadow">
         <!-- Button trigger modal -->
-        <span data-bs-toggle="modal" data-bs-target="#addJustificationType">
-            <button type="button" class="btn btn-primary" data-bs-toggle="tooltip" data-bs-placement="left" data-bs-title="Ajouter un type de justification">
-                <i class="bi bi-file-break-fill text-white fs-4"></i>
+        <span data-bs-toggle="modal" data-bs-target="#addModule">
+            <button type="button" class="btn btn-primary" data-bs-toggle="tooltip" data-bs-placement="left" data-bs-title="Ajouter un module">
+                <i class="bi bi-journals text-white fs-4"></i>
             </button>
         </span>
     </div>
 </div>
 
 <!-- Modals for floating actions -->
-<?php require_once base_path('views/absent/modals/justification_type/create.view.php') ?>
-
+<?php require_once base_path('views/notes/modals/module/create.view.php') ?>
 
 <!-- Modals table -->
 
-<!-- Modal showAbsent -->
-<div class="modal fade" id="showAbsent" tabindex="-1" aria-labelledby="showAbsentLabel" aria-hidden="true">
+<!-- Modal showNotes -->
+<div class="modal fade" id="showNotes" data-bs-backdrop="static" tabindex="-1" aria-labelledby="showNotesLabel" aria-hidden="true">
     <div class="modal-dialog modal-xl">
         <div class="modal-content">
             <div class="modal-header">
-                <h1 class="modal-title fs-5" id="showAbsentLabel">Liste des absences</h1>
+                <h1 class="modal-title fs-5" id="showNotesLabel">Liste des notes</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="modal-body">
-                <!-- Insert Content Here -->
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- Modal addAbsent -->
-<div class="modal fade" id="addAbsent" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h1 class="modal-title fs-5" id="addAbsentLabel">Ajouter absence</h1>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <form action="/absent/add" method="POST">
-                <div class="modal-body">
-                    <!-- Insert Content Here -->
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">Ajouter</button>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
-
-<!-- Modal addJustification -->
-<div class="modal fade" id="addJustification" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h1 class="modal-title fs-5" id="addJustificationLabel">Justifier absence</h1>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <form action="/absent/justify/add" method="POST" enctype="multipart/form-data">
+            <form action="/notes/update" method="POST" enctype="multipart/form-data">
+                <input type="text" name="_method" value="PUT" hidden>
                 <div class="modal-body">
                     <!-- Insert Content Here -->
                 </div>

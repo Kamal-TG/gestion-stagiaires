@@ -13,41 +13,41 @@ const originalUrl = window.location.href;
 
 const anchorElements = document.querySelectorAll(".send-query");
 anchorElements.forEach((anchor) => {
-    anchor.addEventListener("click", (event) => {
-        event.preventDefault()
-        
-        const targetElement = event.currentTarget
+  anchor.addEventListener("click", (event) => {
+    event.preventDefault()
 
-        const href = targetElement.getAttribute("href")
-        window.history.pushState(null, "", href);
+    const targetElement = event.currentTarget
 
-        const requestedUrl = new Request(href)
-        fetch(requestedUrl)
-            .then((response) => {
-                if (! response.ok) {
-                    throw new Error(`Can't fetch data from ${requestedUrl.url}`);
-                }
-                return response.text()
-            })
-            .then((data) => {
-                const targetModalId = targetElement.getAttribute("data-bs-target")
-                if (targetModalId) {
-                    const modal = document.querySelector(`.modal${targetModalId} .modal-body`)
-                    modal.innerHTML = data
-                }
-            })
-            .catch((error) => {
-                console.error(error.message)
-                modal.innerText = "Pas d'informations"
-            })
-    })
+    const href = targetElement.getAttribute("href")
+    window.history.pushState(null, "", href);
+
+    const requestedUrl = new Request(href)
+    fetch(requestedUrl)
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error(`Can't fetch data from ${requestedUrl.url}`);
+        }
+        return response.text()
+      })
+      .then((data) => {
+        const targetModalId = targetElement.getAttribute("data-bs-target")
+        if (targetModalId) {
+          const modal = document.querySelector(`.modal${targetModalId} .modal-body`)
+          modal.innerHTML = data
+        }
+      })
+      .catch((error) => {
+        console.error(error.message)
+        modal.innerText = "Pas d'informations"
+      })
+  })
 })
 
 // Restore the original URL when the modal is closed
-document.querySelectorAll(".modal").forEach((modal) => {
-    modal.addEventListener("hidden.bs.modal", function () {
-        window.history.replaceState(null, "", originalUrl)
-    })
+document.querySelectorAll(".modal:not(.no-old-query)").forEach((modal) => {
+  modal.addEventListener("hidden.bs.modal", function () {
+    window.history.replaceState(null, "", originalUrl)
+  })
 })
 
 
@@ -89,32 +89,37 @@ const filters = [
 /**
  * add event listeners to each filter
  * Also fill select
-*/ 
+*/
 filters.forEach((filter) => {
-    const input = document.querySelector(`.filters #${filter.id}`)
-    const eventToHandle = input.tagName.toLowerCase() === "input" ? "input" : "change"
-    
-    // get index of each column
-    let columnsIndex = []
-    filter.targetColumns.forEach((column) => {
-        columnsIndex.push(getIndexOfColumn(column))
-    })
-    
-    input.addEventListener(eventToHandle, (event) => {
-        const searchQuery = event.currentTarget.value.trim().toLowerCase()
-        filter.rowsToHide = getVisibleRows(searchQuery, columnsIndex)
-        showVisibleRowsOnly()
-    })
+  const input = document.querySelector(`.filters #${filter.id}`)
+  
+  if (! input) {
+    return
+  }
 
-    // add options for select
-    if (input.tagName.toLowerCase() === "select" && columnsIndex.length === 1) {
-        addOptionsFromTable(input, columnsIndex[0], filter.id === "code_bac")
-    }
+  const eventToHandle = input.tagName.toLowerCase() === "input" ? "input" : "change"
+
+  // get index of each column
+  let columnsIndex = []
+  filter.targetColumns.forEach((column) => {
+    columnsIndex.push(getIndexOfColumn(column))
+  })
+
+  input.addEventListener(eventToHandle, (event) => {
+    const searchQuery = event.currentTarget.value.trim().toLowerCase()
+    filter.rowsToHide = getVisibleRows(searchQuery, columnsIndex)
+    showVisibleRowsOnly()
+  })
+
+  // add options for select
+  if (input.tagName.toLowerCase() === "select" && columnsIndex.length === 1) {
+    addOptionsFromTable(input, columnsIndex[0], filter.id === "code_bac")
+  }
 })
 
 function getIndexOfColumn(columnName) {
-    const tableHead = Array.from(table.tHead.rows[0].cells)
-    return tableHead.indexOf(tableHead.find((head) => head.textContent === columnName))
+  const tableHead = Array.from(table.tHead.rows[0].cells)
+  return tableHead.indexOf(tableHead.find((head) => head.textContent === columnName))
 }
 
 function addOptionsFromTable(element, columnIndex, useTitle = false) {
@@ -125,6 +130,10 @@ function addOptionsFromTable(element, columnIndex, useTitle = false) {
   );
 
   sorted.forEach((row, index, array) => {
+    if (row.children.length === 1) {
+      return
+    }
+
     const cellText = row.cells[columnIndex].textContent;
     const cellTitle = row.cells[columnIndex].title;
 
@@ -172,17 +181,34 @@ function getVisibleRows(searchQuery, columnsIndex) {
 
 
 function showVisibleRowsOnly() {
-    filters.forEach((filter) => {
-        filter.rowsToHide.forEach((row) => {
-            row.style.visibility = "collapse"
-        })
+  filters.forEach((filter) => {
+    filter.rowsToHide.forEach((row) => {
+      row.style.visibility = "collapse"
     })
+  })
 }
 
 document.querySelector(".filters button[type='reset']").addEventListener("click", () => {
-    filters.forEach((filter) => {
-        filter.rowsToHide.forEach((row) => {
-            row.style.visibility = null
-        })
+  filters.forEach((filter) => {
+    filter.rowsToHide.forEach((row) => {
+      row.style.visibility = null
     })
+  })
+})
+
+
+/*
+ * Notes Inputs Activation
+ */
+
+document.querySelector(".modal#showNotes")?.addEventListener("shown.bs.modal", function () {
+  const radios = document.querySelectorAll('input[type="radio"]')
+  radios.forEach((radio) => {
+    radio.addEventListener("change", (event) => {
+      if (! event.currentTarget.checked) {
+        return
+      }
+      event.currentTarget.closest("td").querySelector("input.note").disabled = false
+    })
+  })
 })

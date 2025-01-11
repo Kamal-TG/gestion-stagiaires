@@ -20,20 +20,20 @@ function errorRedirect($msg, $filiere_id) {
 }
 
 if ((new DateTime($date_debut)) > (new DateTime($date_fin))) {
-    errorRedirect('Date fin doit supérieur de date fin!', $old_filiere_id);
+    errorRedirect('Date fin doit supérieur de date fin!', $filiere_id);
 }
 
 if (empty($_FILES)) {
-    errorRedirect('$_FILES is empty - is file_uploads enabled in php.ini?', $old_filiere_id);
+    errorRedirect('$_FILES is empty - is file_uploads enabled in php.ini?', $filiere_id);
 }
 
 if ($_FILES['document']['size'] > 1_048_576) {
-    errorRedirect('File too large (max 1MB)', $old_filiere_id);
+    errorRedirect('File too large (max 1MB)', $filiere_id);
 }
 
 $mime_types = ['application/pdf'];
 if (!in_array($_FILES['document']['type'], $mime_types)) {
-    errorRedirect('Invalid file type', $old_filiere_id);
+    errorRedirect('Invalid file type', $filiere_id);
 }
 
 $pathinfo = pathinfo($_FILES['document']['name']);
@@ -69,7 +69,7 @@ while (file_exists($destination)) {
 }
 
 if (! move_uploaded_file($_FILES['document']['tmp_name'], $destination)) {
-    errorRedirect('Can\'t move uploaded file', $old_filiere_id);
+    errorRedirect('Can\'t move uploaded file', $filiere_id);
 }
 
 $document = $destination;
@@ -107,4 +107,4 @@ $db->query(
 
 Session::flash('success', 'Justification a été ajoutée avec succès.');
 
-redirect("/absent/create?filiere_id={$old_filiere_id}");
+redirect("/absent/create?filiere_id={$filiere_id}");
